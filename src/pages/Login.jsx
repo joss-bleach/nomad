@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Components
@@ -86,7 +87,10 @@ const Login = () => {
             </div>
             <p className="py-6 text-sm text-nomad-blue">
               Don't have a Nomad account?{" "}
-              <span className="underline">Click here</span> to register.
+              <Link to="/register" className="underline">
+                Click here
+              </Link>{" "}
+              to register.
             </p>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaCaretRight } from "react-icons/fa";
 
@@ -130,10 +131,12 @@ const Navbar = () => {
       <header className="h-20 w-full border-b border-nomad-light-grey">
         <nav className="flex h-full flex-row items-center justify-between px-5 xl:mx-5 xl:px-20">
           <div className="box-border w-1/3 md:w-1/2">
-            <div
-              style={{ backgroundImage: `url(${logo})` }}
-              className="h-14 w-32 bg-contain bg-left bg-no-repeat"
-            />
+            <Link to="/">
+              <div
+                style={{ backgroundImage: `url(${logo})` }}
+                className="h-14 w-32 bg-contain bg-left bg-no-repeat"
+              />
+            </Link>
           </div>
           <div className="box-border flex w-2/3 justify-center md:w-1/2">
             <ul className="flex flex-row items-center space-x-4 lg:space-x-6 xl:space-x-12">
@@ -146,9 +149,12 @@ const Navbar = () => {
               <li className="relative inline-block cursor-pointer text-nomad-blue after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom-right after:scale-x-0 after:rounded after:bg-nomad-blue after:transition after:content-[''] hover:after:origin-bottom-left hover:after:scale-x-100">
                 About
               </li>
-              <li className="rounded bg-nomad-orange px-4 py-2 text-white">
+              <Link
+                to="/login"
+                className="rounded bg-nomad-orange px-4 py-2 text-white"
+              >
                 Log in
-              </li>
+              </Link>
             </ul>
           </div>
         </nav>

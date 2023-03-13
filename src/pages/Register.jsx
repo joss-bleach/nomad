@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 // Components
@@ -100,7 +101,10 @@ const Register = () => {
             </div>
             <p className="py-6 text-sm text-nomad-blue">
               Already have a Nomad account?{" "}
-              <span className="underline">Click here</span> to log in.
+              <Link to="/login" className="underline">
+                Click here
+              </Link>{" "}
+              to log in.
             </p>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -28,9 +29,12 @@ const Home = () => {
               Discover, rent and buy unique homes from local residents with our
               community&#8209;driven approach to housing.
             </h2>
-            <button className="block h-14 w-full rounded bg-nomad-orange text-white md:h-12 md:w-44">
+            <Link
+              to="/register"
+              className="flex h-14 w-full items-center justify-center rounded bg-nomad-orange text-white md:h-12 md:w-44"
+            >
               Get started
-            </button>
+            </Link>
           </div>
         </div>
       </section>
