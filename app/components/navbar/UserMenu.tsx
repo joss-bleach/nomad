@@ -1,10 +1,17 @@
 "use client";
+import { useCallback, useState } from "react";
 import { Menu } from "lucide-react";
 
 // Components
 import Avatar from "@/ui/Avatar";
+import MenuItem from "./MenuItem";
 
 const UserMenu = () => {
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const toggleMenuOpen = useCallback(() => {
+    setMenuOpen((value) => !value);
+  }, []);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
@@ -15,7 +22,7 @@ const UserMenu = () => {
           List your home
         </div>
         <div
-          onClick={() => {}}
+          onClick={toggleMenuOpen}
           className="flex cursor-pointer flex-row items-center gap-3 rounded border-[1px] border-neutral-200 p-4 transition hover:shadow-md md:px-2 md:py-1"
         >
           <Menu />
@@ -24,6 +31,16 @@ const UserMenu = () => {
           </div>
         </div>
       </div>
+      {menuOpen && (
+        <div className="absolute right-0 top-12 w-[40vw] overflow-hidden rounded bg-white text-sm shadow-md md:w-3/4">
+          <div className="flex cursor-pointer flex-col">
+            <>
+              <MenuItem onClick={() => {}} label="Login" />
+              <MenuItem onClick={() => {}} label="Sign up" />
+            </>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
