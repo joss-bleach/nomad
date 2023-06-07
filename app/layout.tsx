@@ -3,6 +3,8 @@ import { Poppins } from "next/font/google";
 
 // Components
 import Navbar from "@/components/navbar/Navbar";
+import ClientOnly from "@/components/ClientOnly";
+import Modal from "@/ui/Modal";
 
 const font = Poppins({ weight: ["400", "600"], subsets: ["latin"] });
 
@@ -21,7 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         {children}
-        <Navbar />
+        <ClientOnly>
+          <Modal isOpen title="Login modal" />
+          <Navbar />
+        </ClientOnly>
       </body>
     </html>
   );
