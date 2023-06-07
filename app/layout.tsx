@@ -5,6 +5,7 @@ import { Poppins } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
 import ClientOnly from "@/components/ClientOnly";
 import RegistrationModal from "@/components/modals/RegistrationModal";
+import ToasterProvider from "@/providers/ToasterProvider";
 
 const font = Poppins({
   weight: ["300", "400", "600", "700"],
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className={font.className}>
         {children}
         <ClientOnly>
+          <ToasterProvider />
           <RegistrationModal />
           <Navbar />
         </ClientOnly>
