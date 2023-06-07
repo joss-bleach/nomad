@@ -106,7 +106,7 @@ const RegistrationModal: FC<RegistrationModalProps> = () => {
         <p
           role="button"
           onClick={registrationModal.onClose}
-          className="mt-4 cursor-pointer text-center text-center text-neutral-800 hover:underline"
+          className="mt-4 cursor-pointer text-center text-neutral-800 hover:underline"
         >
           Log in
         </p>
