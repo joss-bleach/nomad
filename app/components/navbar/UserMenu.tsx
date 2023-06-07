@@ -2,11 +2,15 @@
 import { useCallback, useState } from "react";
 import { Menu } from "lucide-react";
 
+// Hooks
+import useRegistrationModal from "@/hooks/useRegistrationModal";
+
 // Components
 import Avatar from "@/ui/Avatar";
 import MenuItem from "./MenuItem";
 
 const UserMenu = () => {
+  const registrationModal = useRegistrationModal();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const toggleMenuOpen = useCallback(() => {
     setMenuOpen((value) => !value);
@@ -36,7 +40,7 @@ const UserMenu = () => {
           <div className="flex cursor-pointer flex-col">
             <>
               <MenuItem onClick={() => {}} label="Login" />
-              <MenuItem onClick={() => {}} label="Sign up" />
+              <MenuItem onClick={registrationModal.onOpen} label="Sign up" />
             </>
           </div>
         </div>

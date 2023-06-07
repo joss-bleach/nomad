@@ -4,12 +4,15 @@ import { Poppins } from "next/font/google";
 // Components
 import Navbar from "@/components/navbar/Navbar";
 import ClientOnly from "@/components/ClientOnly";
-import Modal from "@/ui/Modal";
+import RegistrationModal from "@/components/modals/RegistrationModal";
 
-const font = Poppins({ weight: ["400", "600"], subsets: ["latin"] });
+const font = Poppins({
+  weight: ["300", "400", "600", "700"],
+  subsets: ["latin"],
+});
 
 export const metadata = {
-  title: "Nomad",
+  title: "Nomad | Work from anywhere",
   description:
     "Find your perfect home with Nomad's online housing marketplace for professionals who love adventure and exploration.",
 };
@@ -24,7 +27,7 @@ export default function RootLayout({
       <body className={font.className}>
         {children}
         <ClientOnly>
-          <Modal isOpen title="Login modal" />
+          <RegistrationModal />
           <Navbar />
         </ClientOnly>
       </body>

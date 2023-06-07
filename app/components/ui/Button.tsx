@@ -1,6 +1,7 @@
 "use client";
 import { Icon } from "lucide-react";
 import { FC, MouseEvent } from "react";
+import { IconType } from "react-icons";
 
 interface ButtonProps {
   label: string;
@@ -8,7 +9,7 @@ interface ButtonProps {
   disabled?: boolean;
   outline?: boolean;
   small?: boolean;
-  icon?: Icon;
+  icon?: Icon | IconType;
 }
 
 const Button: FC<ButtonProps> = ({
