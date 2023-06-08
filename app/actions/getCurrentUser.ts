@@ -6,7 +6,7 @@ export async function getUserSession() {
   return await getServerSession(authOptions);
 }
 
-export default async function getCurrentUer() {
+export default async function getCurrentUser() {
   try {
     const session = await getUserSession();
     if (!session?.user?.email) {
