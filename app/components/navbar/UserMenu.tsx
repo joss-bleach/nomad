@@ -1,7 +1,7 @@
 "use client";
 import { FC, useCallback, useState } from "react";
 import { Menu } from "lucide-react";
-import { User } from "@prisma/client";
+import { SafeUser } from "@/app/types";
 import { signOut } from "next-auth/react";
 
 // Hooks
@@ -13,7 +13,7 @@ import Avatar from "@/ui/Avatar";
 import MenuItem from "./MenuItem";
 
 interface UserMenuProps {
-  currentUser: User | null;
+  currentUser: SafeUser | null;
 }
 
 const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
