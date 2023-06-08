@@ -1,6 +1,7 @@
 "use client";
 import { FC, useMemo, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import dynamic from "next/dynamic";
 
 // Hooks
 import useListHomeModal from "@/hooks/useListHomeModal";
@@ -9,9 +10,10 @@ import useListHomeModal from "@/hooks/useListHomeModal";
 import Modal from "@/ui/Modal";
 import Heading from "@/ui/Heading";
 import CategoryInput from "@/ui/forms/CategoryInput";
+import Counter from "@/ui/forms/Counter";
+import ImageUpload from "@/ui/forms/ImageUpload";
 import { categories } from "@/components/navbar/Categories";
 import CountrySelect from "@/ui/forms/CountrySelect";
-import dynamic from "next/dynamic";
 
 enum STEPS {
   CATEGORY = 0,
@@ -50,6 +52,9 @@ const ListHomeModal: FC<ListHomeModalProps> = () => {
 
   const category = watch("category");
   const location = watch("location");
+  const guestCount = watch("guestCount");
+  const roomCount = watch("roomCount");
+  const bathroomCount = watch("bathroomCount");
 
   const Map = useMemo(
     () =>
@@ -128,6 +133,49 @@ const ListHomeModal: FC<ListHomeModalProps> = () => {
           onChange={(value) => setCustomValue("location", value)}
         />
         <Map center={location?.latlng} />
+      </div>
+    );
+  }
+
+  if (formStep === STEPS.INFORMATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Share some information about the property"
+          subtitle="What ameneties do you have?"
+        />
+        <Counter
+          title="Guests"
+          subtitle="How many can you accomodate?"
+          value={guestCount}
+          onChange={(value) => setCustomValue("guestCount", value)}
+        />
+        <hr />
+        <Counter
+          title="Bedrooms"
+          subtitle="How many bedrooms do you have?"
+          value={roomCount}
+          onChange={(value) => setCustomValue("roomCount", value)}
+        />
+        <hr />
+        <Counter
+          title="Bathrooms"
+          subtitle="How many bathrooms do you have?"
+          value={bathroomCount}
+          onChange={(value) => setCustomValue("bathroomCount", value)}
+        />
+      </div>
+    );
+  }
+
+  if (formStep === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Property images"
+          subtitle="Show guests what your property looks like"
+        />
+        <ImageUpload />
       </div>
     );
   }
