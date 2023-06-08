@@ -12,7 +12,7 @@ import LoginModal from "@/components/modals/LoginModal";
 import ToasterProvider from "@/providers/ToasterProvider";
 
 const font = Poppins({
-  weight: ["300", "400", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
