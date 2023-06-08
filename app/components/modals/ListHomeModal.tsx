@@ -11,6 +11,7 @@ import Heading from "@/ui/Heading";
 import CategoryInput from "@/ui/forms/CategoryInput";
 import { categories } from "@/components/navbar/Categories";
 import CountrySelect from "@/ui/forms/CountrySelect";
+import dynamic from "next/dynamic";
 
 enum STEPS {
   CATEGORY = 0,
@@ -49,6 +50,14 @@ const ListHomeModal: FC<ListHomeModalProps> = () => {
 
   const category = watch("category");
   const location = watch("location");
+
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("../map/Map"), {
+        ssr: false,
+      }),
+    [location]
+  );
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -118,6 +127,7 @@ const ListHomeModal: FC<ListHomeModalProps> = () => {
           value={location}
           onChange={(value) => setCustomValue("location", value)}
         />
+        <Map center={location?.latlng} />
       </div>
     );
   }
