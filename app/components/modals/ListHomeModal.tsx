@@ -1,7 +1,9 @@
 "use client";
 import { FC, useMemo, useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 // Hooks
 import useListHomeModal from "@/hooks/useListHomeModal";
@@ -12,8 +14,10 @@ import Heading from "@/ui/Heading";
 import CategoryInput from "@/ui/forms/CategoryInput";
 import Counter from "@/ui/forms/Counter";
 import ImageUpload from "@/ui/forms/ImageUpload";
+import Input from "@/ui/forms/Input";
 import { categories } from "@/components/navbar/Categories";
 import CountrySelect from "@/ui/forms/CountrySelect";
+import { toast } from "react-hot-toast";
 
 enum STEPS {
   CATEGORY = 0,
@@ -27,7 +31,9 @@ enum STEPS {
 interface ListHomeModalProps {}
 
 const ListHomeModal: FC<ListHomeModalProps> = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formStep, setFormStep] = useState<STEPS>(STEPS.CATEGORY);
+  const router = useRouter();
 
   const {
     register,
@@ -55,6 +61,7 @@ const ListHomeModal: FC<ListHomeModalProps> = () => {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
+  const imageSrc = watch("imageSrc");
 
   const Map = useMemo(
     () =>
@@ -84,6 +91,28 @@ const ListHomeModal: FC<ListHomeModalProps> = () => {
       return undefined;
     }
     setFormStep((value) => value + 1);
+  };
+
+  const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
+    if (formStep !== STEPS.PRICE) {
+      return onNextStep();
+    }
+    setIsLoading(true);
+    try {
+      await axios.post("/api/listings", data);
+      toast.success("Listing created successfully.");
+      router.refresh();
+      reset();
+      setFormStep(STEPS.CATEGORY);
+      listHomeModal.onClose();
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
+      toast.error("Something went wrong.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const actionLabel = useMemo(() => {
@@ -175,7 +204,57 @@ const ListHomeModal: FC<ListHomeModalProps> = () => {
           title="Property images"
           subtitle="Show guests what your property looks like"
         />
-        <ImageUpload />
+        <ImageUpload
+          value={imageSrc}
+          onChange={(value) => setCustomValue("imageSrc", value)}
+        />
+      </div>
+    );
+  }
+
+  if (formStep === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Property description"
+          subtitle="Write a brief description of your property."
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="Description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+      </div>
+    );
+  }
+
+  if (formStep === STEPS.PRICE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Choose your price"
+          subtitle="How much do you charge per night?"
+        />
+        <Input
+          formatPrice
+          id="price"
+          label="Price"
+          register={register}
+          errors={errors}
+          required
+        />
       </div>
     );
   }
@@ -185,7 +264,7 @@ const ListHomeModal: FC<ListHomeModalProps> = () => {
     <Modal
       isOpen={listHomeModal.isOpen}
       onClose={listHomeModal.onClose}
-      onSubmit={onNextStep}
+      onSubmit={handleSubmit(handleOnSubmit)}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={onPreviousStep}
