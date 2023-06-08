@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 
 // Hooks
 import useRegistrationModal from "@/hooks/useRegistrationModal";
@@ -89,13 +90,13 @@ const RegistrationModal = () => {
         outline
         label="Continue with Google"
         icon={FaGoogle}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue with GitHub"
         icon={FaGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div className="flex flex-row items-center justify-center gap-2">
         <p className="mt-4 text-center font-light text-neutral-500">

@@ -45,8 +45,6 @@ const LoginModal = () => {
         loginModal.onClose();
       }
       if (callback?.error) {
-        console.log(callback.error);
-        console.log(data);
         toast.error(callback.error);
       }
     });
@@ -86,13 +84,13 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FaGoogle}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue with GitHub"
         icon={FaGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div className="flex flex-row items-center justify-center gap-2">
         <p className="mt-4 text-center font-light text-neutral-500">
