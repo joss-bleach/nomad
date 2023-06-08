@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { FaGoogle, FaGithub } from "react-icons/fa";
@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 
 // Hooks
 import useRegistrationModal from "@/hooks/useRegistrationModal";
+import useLoginModal from "@/hooks/useLoginModal";
 
 // Components
 import Modal from "@/ui/Modal";
@@ -17,6 +18,7 @@ import Button from "@/ui/Button";
 
 const RegistrationModal = () => {
   const registrationModal = useRegistrationModal();
+  const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
@@ -30,6 +32,11 @@ const RegistrationModal = () => {
       password: "",
     },
   });
+
+  const toggleModal = useCallback(() => {
+    registrationModal.onClose();
+    loginModal.onOpen();
+  }, [loginModal, registrationModal]);
 
   const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
@@ -104,7 +111,7 @@ const RegistrationModal = () => {
         </p>
         <p
           role="button"
-          onClick={registrationModal.onClose}
+          onClick={toggleModal}
           className="mt-4 cursor-pointer text-center text-neutral-800 hover:underline"
         >
           Log in

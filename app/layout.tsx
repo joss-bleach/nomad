@@ -9,6 +9,7 @@ import Navbar from "@/components/navbar/Navbar";
 import ClientOnly from "@/components/ClientOnly";
 import RegistrationModal from "@/components/modals/RegistrationModal";
 import LoginModal from "@/components/modals/LoginModal";
+import ListHomeModal from "@/components/modals/ListHomeModal";
 import ToasterProvider from "@/providers/ToasterProvider";
 
 const font = Poppins({
@@ -36,6 +37,7 @@ export default async function RootLayout({
           <ToasterProvider />
           <RegistrationModal />
           <LoginModal />
+          <ListHomeModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
       </body>

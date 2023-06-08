@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
@@ -8,6 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 // Hooks
 import useLoginModal from "@/hooks/useLoginModal";
+import useRegistrationModal from "@/hooks/useRegistrationModal";
 
 // Components
 import Modal from "@/ui/Modal";
@@ -17,6 +18,7 @@ import Button from "@/ui/Button";
 
 const LoginModal = () => {
   const loginModal = useLoginModal();
+  const registrationModal = useRegistrationModal();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
@@ -31,6 +33,11 @@ const LoginModal = () => {
       password: "",
     },
   });
+
+  const toggleModal = useCallback(() => {
+    loginModal.onClose();
+    registrationModal.onOpen();
+  }, [loginModal, registrationModal]);
 
   const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
@@ -98,7 +105,7 @@ const LoginModal = () => {
         </p>
         <p
           role="button"
-          onClick={loginModal.onClose}
+          onClick={toggleModal}
           className="mt-4 cursor-pointer text-center text-neutral-800 hover:underline"
         >
           Sign up

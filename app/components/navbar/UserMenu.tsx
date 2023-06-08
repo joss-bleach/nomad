@@ -7,6 +7,7 @@ import { signOut } from "next-auth/react";
 // Hooks
 import useRegistrationModal from "@/hooks/useRegistrationModal";
 import useLoginModal from "@/hooks/useLoginModal";
+import useListHomeModal from "@/hooks/useListHomeModal";
 
 // Components
 import Avatar from "@/ui/Avatar";
@@ -19,16 +20,24 @@ interface UserMenuProps {
 const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
   const registrationModal = useRegistrationModal();
   const loginModal = useLoginModal();
+  const listHomeModal = useListHomeModal();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const toggleMenuOpen = useCallback(() => {
     setMenuOpen((value) => !value);
   }, []);
 
+  const onListHome = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+    listHomeModal.onOpen();
+  }, [currentUser, loginModal, listHomeModal]);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={onListHome}
           className="hidden cursor-pointer rounded px-4 py-3 text-sm font-semibold transition hover:bg-neutral-100 md:block"
         >
           List your home
@@ -52,7 +61,10 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem onClick={() => {}} label="My favourites" />
                 <MenuItem onClick={() => {}} label="My reservations" />
                 <MenuItem onClick={() => {}} label="My listings" />
-                <MenuItem onClick={() => {}} label="List your property" />
+                <MenuItem
+                  onClick={listHomeModal.onOpen}
+                  label="List your property"
+                />
                 <hr />
                 <MenuItem onClick={() => signOut()} label="Log Out" />
               </>
