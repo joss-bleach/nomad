@@ -1,10 +1,14 @@
 import "./globals.css";
 import { Poppins } from "next/font/google";
 
+// Actions
+import getCurrentUser from "@/actions/getCurrentUser";
+
 // Components
 import Navbar from "@/components/navbar/Navbar";
 import ClientOnly from "@/components/ClientOnly";
 import RegistrationModal from "@/components/modals/RegistrationModal";
+import LoginModal from "@/components/modals/LoginModal";
 import ToasterProvider from "@/providers/ToasterProvider";
 
 const font = Poppins({
@@ -18,11 +22,12 @@ export const metadata = {
     "Find your perfect home with Nomad's online housing marketplace for professionals who love adventure and exploration.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       <body className={font.className}>
@@ -30,7 +35,8 @@ export default function RootLayout({
         <ClientOnly>
           <ToasterProvider />
           <RegistrationModal />
-          <Navbar />
+          <LoginModal />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
       </body>
     </html>

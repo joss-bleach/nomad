@@ -1,16 +1,24 @@
 "use client";
-import { useCallback, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { Menu } from "lucide-react";
+import { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
 
 // Hooks
 import useRegistrationModal from "@/hooks/useRegistrationModal";
+import useLoginModal from "@/hooks/useLoginModal";
 
 // Components
 import Avatar from "@/ui/Avatar";
 import MenuItem from "./MenuItem";
 
-const UserMenu = () => {
+interface UserMenuProps {
+  currentUser: User | null;
+}
+
+const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
   const registrationModal = useRegistrationModal();
+  const loginModal = useLoginModal();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const toggleMenuOpen = useCallback(() => {
     setMenuOpen((value) => !value);
@@ -38,10 +46,22 @@ const UserMenu = () => {
       {menuOpen && (
         <div className="absolute right-0 top-12 w-[40vw] overflow-hidden rounded bg-white text-sm shadow-md md:w-3/4">
           <div className="flex cursor-pointer flex-col">
-            <>
-              <MenuItem onClick={() => {}} label="Login" />
-              <MenuItem onClick={registrationModal.onOpen} label="Sign up" />
-            </>
+            {currentUser ? (
+              <>
+                <MenuItem onClick={() => {}} label="My stays" />
+                <MenuItem onClick={() => {}} label="My favourites" />
+                <MenuItem onClick={() => {}} label="My reservations" />
+                <MenuItem onClick={() => {}} label="My listings" />
+                <MenuItem onClick={() => {}} label="List your property" />
+                <hr />
+                <MenuItem onClick={() => signOut()} label="Log Out" />
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={loginModal.onOpen} label="Login" />
+                <MenuItem onClick={registrationModal.onOpen} label="Sign up" />
+              </>
+            )}
           </div>
         </div>
       )}
