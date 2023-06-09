@@ -5,14 +5,20 @@ import { Heart } from "lucide-react";
 // Types
 import { SafeUser } from "@/app/types";
 
+// Hooks
+import useFavourite from "@/hooks/useFavourite";
+
 interface HeartButtonProps {
   listingId: string;
   currentUser?: SafeUser | null;
 }
 
 const HeartButton: FC<HeartButtonProps> = ({ listingId, currentUser }) => {
-  const hasFavourited = false;
-  const toggleFavourite = () => {};
+  const { hasFavourited, toggleFavourite } = useFavourite({
+    listingId,
+    currentUser,
+  });
+
   const heartColour = hasFavourited ? "#F47C68" : "#e5e5e5";
   return (
     <div

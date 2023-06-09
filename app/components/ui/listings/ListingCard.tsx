@@ -81,7 +81,7 @@ const ListingCard: FC<ListingCardProps> = ({
             fill
             className="group h-full w-full object-cover transition hover:scale-110"
           />
-          <div className="absolute right-3 top-3">
+          <div className="absolute right-3 top-3 z-20">
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>
