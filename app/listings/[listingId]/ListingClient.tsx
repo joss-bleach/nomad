@@ -6,8 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 // Types
-import { SafeListing, SafeUser } from "@/app/types";
-import { Reservation } from "@prisma/client";
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 import { Range } from "react-date-range";
 
 // Hooks
@@ -27,7 +26,7 @@ const initialDateRange = {
 };
 
 interface ListingClientProps {
-  reservations?: Reservation[];
+  reservations?: SafeReservation[];
   listing: SafeListing & {
     user: SafeUser;
   };
@@ -43,7 +42,7 @@ const ListingClient: FC<ListingClientProps> = ({
   const router = useRouter();
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
-    reservations.forEach((reservation: Reservation) => {
+    reservations.forEach((reservation: SafeReservation) => {
       const range = eachDayOfInterval({
         start: new Date(reservation.startDate),
         end: new Date(reservation.endDate),
