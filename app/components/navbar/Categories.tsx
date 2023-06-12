@@ -7,6 +7,7 @@ import {
   Sailboat,
   Waves,
   ConciergeBell,
+  Tent,
   Brush,
 } from "lucide-react";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -47,7 +48,7 @@ export const categories = [
   },
   {
     label: "Camping",
-    icon: Sailboat,
+    icon: Tent,
     description: "This property is in a camping location.",
   },
   {
