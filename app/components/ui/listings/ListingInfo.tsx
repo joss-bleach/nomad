@@ -73,7 +73,9 @@ const ListingInfo: FC<ListingInfoProps> = ({
         <hr />
         <p className="text-lg font-light text-neutral-500">{description}</p>
         <hr />
-        <Map center={coordinates} />
+        <div className="py-4">
+          <Map center={coordinates} />
+        </div>
       </div>
     </section>
   );
