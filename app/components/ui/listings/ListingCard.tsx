@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import Image from "next/image";
 
 // Types
-import { SafeUser } from "@/app/types";
+import { SafeListing, SafeUser } from "@/app/types";
 
 // Hooks
 import useCountries from "@/app/hooks/useCountries";
@@ -16,7 +16,7 @@ import HeartButton from "@/ui/HeartButton";
 import Button from "@/ui/Button";
 
 interface ListingCardProps {
-  data: Listing;
+  data: SafeListing;
   reservation?: Reservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -81,7 +81,7 @@ const ListingCard: FC<ListingCardProps> = ({
             fill
             className="group h-full w-full object-cover transition hover:scale-110"
           />
-          <div className="absolute right-3 top-3 z-20">
+          <div className="absolute right-3 top-3">
             <HeartButton listingId={data.id} currentUser={currentUser} />
           </div>
         </div>

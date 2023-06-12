@@ -1,6 +1,9 @@
 // Actions
 import getListings from "@/actions/getListings";
 
+// Types
+import { SafeListing } from "./types";
+
 // Components
 import ClientOnly from "@/components/ClientOnly";
 import Container from "@/components/ui/Container";
@@ -23,7 +26,7 @@ const Home = async () => {
     <ClientOnly>
       <Container>
         <section className="grid grid-cols-1 gap-8 pt-24 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          {listings.map((listing) => (
+          {listings.map((listing: SafeListing) => (
             <ListingCard
               key={listing.id}
               data={listing}
