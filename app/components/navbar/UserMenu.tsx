@@ -3,6 +3,7 @@ import { FC, useCallback, useState } from "react";
 import { Menu } from "lucide-react";
 import { SafeUser } from "@/app/types";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 // Hooks
 import useRegistrationModal from "@/hooks/useRegistrationModal";
@@ -21,6 +22,7 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
   const registrationModal = useRegistrationModal();
   const loginModal = useLoginModal();
   const listHomeModal = useListHomeModal();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const toggleMenuOpen = useCallback(() => {
     setMenuOpen((value) => !value);
@@ -57,9 +59,15 @@ const UserMenu: FC<UserMenuProps> = ({ currentUser }) => {
           <div className="flex cursor-pointer flex-col">
             {currentUser ? (
               <>
-                <MenuItem onClick={() => {}} label="My stays" />
+                <MenuItem
+                  onClick={() => router.push("/trips/")}
+                  label="My stays"
+                />
                 <MenuItem onClick={() => {}} label="My favourites" />
-                <MenuItem onClick={() => {}} label="My reservations" />
+                <MenuItem
+                  onClick={() => {}}
+                  label="Reservations at your properties"
+                />
                 <MenuItem onClick={() => {}} label="My listings" />
                 <MenuItem
                   onClick={listHomeModal.onOpen}

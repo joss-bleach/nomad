@@ -71,8 +71,7 @@ const ListingClient: FC<ListingClientProps> = ({
       });
       toast.success("Reservation made succesfully.");
       setDateRange(initialDateRange);
-      // Redirect to /trips
-      router.refresh();
+      router.push("/trips");
     } catch (err) {
       if (err instanceof Error) {
         toast.error(err.message);
