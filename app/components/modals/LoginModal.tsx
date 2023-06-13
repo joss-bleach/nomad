@@ -101,7 +101,7 @@ const LoginModal = () => {
       />
       <div className="flex flex-row items-center justify-center gap-2">
         <p className="mt-4 text-center font-light text-neutral-500">
-          Don't have an account?
+          Don&apos;t have an account?
         </p>
         <p
           role="button"

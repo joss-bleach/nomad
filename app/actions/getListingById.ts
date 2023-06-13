@@ -35,6 +35,6 @@ export default async function getListingById(params: IParams) {
     if (err instanceof Error) {
       throw new Error(err.message);
     }
-    throw new Error("Couldn't fetch listing");
+    throw new Error("Could not fetch listing");
   }
 }
