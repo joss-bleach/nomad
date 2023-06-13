@@ -1,9 +1,18 @@
 "use client";
 import { SearchIcon } from "lucide-react";
 
+// Hooks
+import useSearchModal from "@/hooks/useSearchModal";
+
 const Search = () => {
+  const searchModal = useSearchModal();
   return (
-    <div className="w-full cursor-pointer rounded border-[1px] py-2 shadow-sm transition hover:shadow-md md:w-auto">
+    <div
+      onClick={searchModal.onOpen}
+      aria-label="Open search"
+      role="button"
+      className="w-full cursor-pointer rounded border-[1px] py-2 shadow-sm transition hover:shadow-md md:w-auto"
+    >
       <div className="flex flex-row items-center justify-between">
         <div className="px-6 text-sm font-semibold">Where?</div>
         <div className="hidden flex-1 border-x-[1px] px-6 text-center text-sm font-semibold sm:block">
