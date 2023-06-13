@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 // Actions
 import getListings, { IListingsParams } from "@/actions/getListings";
 
