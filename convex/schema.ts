@@ -6,8 +6,10 @@ const schema = defineSchema({
   ...authTables,
   listingCategories: defineTable({
     name: v.string(),
-    iconUrl: v.optional(v.id("_storage")),
-  }).index("by_name", ["name"]),
+    icon: v.string(),
+  })
+    .index("by_name", ["name"])
+    .index("by_icon", ["icon"]),
 });
 
 export default schema;

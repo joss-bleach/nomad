@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    domains: ["notable-oriole-308.convex.cloud"],
+  },
+};
 
 export default nextConfig;
