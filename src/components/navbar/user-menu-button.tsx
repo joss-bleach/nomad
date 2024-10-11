@@ -1,14 +1,12 @@
 "use client";
 import { Authenticated, Unauthenticated, AuthLoading } from "convex/react";
-
-// Assets
-import placeholder from "./avatar-placeholder.jpg";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 // Hooks
 import { useModal } from "@/providers/modal-provider";
 
 // Components
-import { Menu } from "lucide-react";
+import { MenuIcon, UserIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -21,6 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const UserMenuButton = () => {
   const { onOpen } = useModal();
+  const { signOut } = useAuthActions();
   return (
     <>
       <AuthLoading>
@@ -35,7 +34,7 @@ export const UserMenuButton = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="rounded-full border-gray-300">
-              <Menu className="h-5 w-5 mr-2" />
+              <MenuIcon className="mr-2 h-5 w-5" />
 
               <Avatar className="h-7 w-7">
                 <AvatarFallback>U</AvatarFallback>
@@ -44,7 +43,14 @@ export const UserMenuButton = () => {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem>Sign out</DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer px-4 py-2"
+              role="button"
+              aria-label="Sign out"
+              onClick={() => void signOut()}
+            >
+              Sign out
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </Authenticated>
@@ -52,27 +58,28 @@ export const UserMenuButton = () => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="rounded-full border-gray-300">
-              <Menu className="h-5 w-5 mr-2" />
+              <MenuIcon className="mr-2 h-5 w-5" />
 
-              <Avatar className="h-7 w-7">
-                <AvatarImage src="./avatar-placeholder.jpg" alt="Placeholder" />
-                <AvatarFallback>PH</AvatarFallback>
-              </Avatar>
+              <div className="flex size-7 items-center justify-center rounded-full bg-muted">
+                <UserIcon className="size-4 text-muted-foreground" />
+              </div>
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuContent align="end" className="w-48 space-y-2">
             <DropdownMenuItem
+              className="cursor-pointer px-4 py-2"
               role="button"
               aria-label="Sign up"
-              onClick={() => void onOpen("auth")}
+              onClick={() => void onOpen("auth", { flow: "signUp" })}
             >
               Sign up
             </DropdownMenuItem>
             <DropdownMenuItem
+              className="cursor-pointer px-4 py-2"
               role="button"
               aria-label="Sign up"
-              onClick={() => void onOpen("auth")}
+              onClick={() => void onOpen("auth", { flow: "signIn" })}
             >
               Sign in
             </DropdownMenuItem>

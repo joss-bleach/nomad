@@ -1,17 +1,12 @@
-"use client";
-import { useModal } from "@/providers/modal-provider";
-
 // Components
 import { Button } from "../ui/button";
 import { UserMenuButton } from "./user-menu-button";
 
 export const Navbar = () => {
-  const { onOpen } = useModal();
-
   return (
-    <header className="w-full px-20 flex items-center h-20 justify-between">
+    <header className="flex h-20 w-full items-center justify-between px-20">
       <h1>Nomad</h1>
-      <ul className="flex flex-row items-center space-x-2">
+      <ul className="flex flex-row items-center space-x-4">
         <li>
           <Button variant="ghost">List your home</Button>
         </li>

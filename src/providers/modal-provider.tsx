@@ -6,13 +6,19 @@ import {
   useCallback,
   useContext,
 } from "react";
+import { SignInFlow } from "@/features/auth/types";
 
 export type ModalType = "auth" | null;
+
+interface ModalData {
+  flow?: SignInFlow;
+}
 
 interface ModalContextType {
   type: ModalType;
   isOpen: boolean;
-  onOpen: (type: Exclude<ModalType, null>) => void;
+  modalData?: ModalData;
+  onOpen: (type: Exclude<ModalType, null>, modalData?: ModalData) => void;
   onClose: () => void;
 }
 
@@ -28,15 +34,21 @@ import { AuthModal } from "@/features/auth/components/auth-modal";
 export const ModalProvider = ({ children }: ModalProviderProps) => {
   const [type, setType] = useState<ModalType>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<ModalData | {}>({});
   const [isMounted, setIsMounted] = useState<boolean>(false);
 
-  const onOpen = useCallback((newType: Exclude<ModalType, null>) => {
-    setType(newType);
-    setIsOpen(true);
-  }, []);
+  const onOpen = useCallback(
+    (newType: Exclude<ModalType, null>, data: ModalData = {}) => {
+      setType(newType);
+      setModalData(data);
+      setIsOpen(true);
+    },
+    [],
+  );
 
   const onClose = useCallback(() => {
     setType(null);
+    setModalData({});
     setIsOpen(false);
   }, []);
 
@@ -45,7 +57,7 @@ export const ModalProvider = ({ children }: ModalProviderProps) => {
   }, []);
 
   return (
-    <ModalContext.Provider value={{ type, isOpen, onOpen, onClose }}>
+    <ModalContext.Provider value={{ type, isOpen, onOpen, onClose, modalData }}>
       {isMounted ? (
         <>
           <AuthModal />
